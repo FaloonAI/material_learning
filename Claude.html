@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #764ba2;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            border: 1px solid #e9ecef;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .method-group {
+            margin-bottom: 15px;
+        }
+
+        .method-item {
+            margin: 5px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            transition: all 0.2s;
+        }
+
+        .method-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .method-name {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .method-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .back-to-top:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐍 Python Reference Guide</h1>
+        
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Поиск методов, функций, примеров..." id="searchInput">
+        </div>
+
+        <div class="grid">
+            <div class="section" data-content="строки string методы upper lower split join">
+                <h2>🔤 Строки (str)</h2>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">.upper()</span>
+                        <span class="method-desc">→ "ЗАГЛАВНЫЕ"</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.lower()</span>
+                        <span class="method-desc">→ "строчные"</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.strip()</span>
+                        <span class="method-desc">убрать пробелы</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.split(sep)</span>
+                        <span class="method-desc">разбить на список</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.join(list)</span>
+                        <span class="method-desc">соединить список</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.replace(old, new)</span>
+                        <span class="method-desc">заменить текст</span>
+                    </div>
+                </div>
+                <pre>text = "Hello World"
+text.upper()     # "HELLO WORLD"
+text.split()     # ["Hello", "World"]
+"-".join(["a", "b"])  # "a-b"</pre>
+            </div>
+
+            <div class="section" data-content="списки list методы append remove pop sort">
+                <h2>📝 Списки (list)</h2>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">.append(item)</span>
+                        <span class="method-desc">добавить в конец</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.insert(i, item)</span>
+                        <span class="method-desc">вставить по индексу</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.remove(item)</span>
+                        <span class="method-desc">удалить элемент</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.pop()</span>
+                        <span class="method-desc">удалить последний</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.sort()</span>
+                        <span class="method-desc">отсортировать</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.reverse()</span>
+                        <span class="method-desc">обратить порядок</span>
+                    </div>
+                </div>
+                <pre>lst = [1, 2, 3]
+lst.append(4)    # [1, 2, 3, 4]
+lst.pop()        # 4, lst = [1, 2, 3]
+lst[::-1]        # [3, 2, 1]</pre>
+            </div>
+
+            <div class="section" data-content="словари dict методы keys values items get">
+                <h2>📚 Словари (dict)</h2>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">.get(key, default)</span>
+                        <span class="method-desc">получить значение</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.keys()</span>
+                        <span class="method-desc">все ключи</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.values()</span>
+                        <span class="method-desc">все значения</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.items()</span>
+                        <span class="method-desc">пары (ключ, значение)</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.update(other)</span>
+                        <span class="method-desc">обновить словарь</span>
+                    </div>
+                </div>
+                <pre>d = {"name": "John", "age": 25}
+d.get("name", "Unknown")  # "John"
+list(d.keys())           # ["name", "age"]
+"name" in d              # True</pre>
+            </div>
+
+            <div class="section" data-content="множества set методы add remove union intersection">
+                <h2>🎯 Множества (set)</h2>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">.add(item)</span>
+                        <span class="method-desc">добавить элемент</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.remove(item)</span>
+                        <span class="method-desc">удалить (с ошибкой)</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">.discard(item)</span>
+                        <span class="method-desc">удалить (без ошибки)</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">set1 | set2</span>
+                        <span class="method-desc">объединение</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">set1 & set2</span>
+                        <span class="method-desc">пересечение</span>
+                    </div>
+                </div>
+                <pre>s = {1, 2, 3}
+s.add(4)         # {1, 2, 3, 4}
+{1, 2} | {2, 3}  # {1, 2, 3}
+{1, 2} & {2, 3}  # {2}</pre>
+            </div>
+
+            <div class="section" data-content="встроенные функции len min max sum sorted">
+                <h2>🔧 Встроенные функции</h2>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">len(obj)</span>
+                        <span class="method-desc">длина объекта</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">min(iterable)</span>
+                        <span class="method-desc">минимальный элемент</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">max(iterable)</span>
+                        <span class="method-desc">максимальный элемент</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">sum(iterable)</span>
+                        <span class="method-desc">сумма элементов</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">sorted(iterable)</span>
+                        <span class="method-desc">отсортированный список</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">enumerate(iterable)</span>
+                        <span class="method-desc">пары (индекс, значение)</span>
+                    </div>
+                </div>
+                <pre>len([1, 2, 3])           # 3
+max([1, 5, 3])           # 5
+sorted([3, 1, 2])        # [1, 2, 3]
+list(enumerate(['a','b'])) # [(0,'a'), (1,'b')]</pre>
+            </div>
+
+            <div class="section" data-content="циклы for while range break continue">
+                <h2>🔄 Циклы</h2>
+                <h3>For цикл</h3>
+                <pre>for item in [1, 2, 3]:
+    print(item)
+
+for i in range(5):      # 0, 1, 2, 3, 4
+    print(i)
+
+for i, val in enumerate(['a', 'b']):
+    print(i, val)       # 0 a, 1 b</pre>
+                
+                <h3>While цикл</h3>
+                <pre>i = 0
+while i < 5:
+    print(i)
+    i += 1</pre>
+
+                <h3>Управление</h3>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">break</span>
+                        <span class="method-desc">выйти из цикла</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">continue</span>
+                        <span class="method-desc">следующая итерация</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" data-content="условия if elif else тернарный оператор">
+                <h2>❓ Условные операторы</h2>
+                <pre>if condition:
+    # код
+elif another_condition:
+    # код
+else:
+    # код</pre>
+                
+                <h3>Тернарный оператор</h3>
+                <pre>result = value_if_true if condition else value_if_false
+
+# Пример
+status = "adult" if age >= 18 else "minor"</pre>
+
+                <h3>Операторы сравнения</h3>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">==, !=</span>
+                        <span class="method-desc">равно, не равно</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">&lt;, &gt;, &lt;=, &gt;=</span>
+                        <span class="method-desc">сравнения</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">in, not in</span>
+                        <span class="method-desc">вхождение</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">and, or, not</span>
+                        <span class="method-desc">логические операторы</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" data-content="исключения try except finally raise">
+                <h2>⚠️ Исключения</h2>
+                <pre>try:
+    risky_operation()
+except SpecificError as e:
+    print(f"Ошибка: {e}")
+except Exception as e:
+    print(f"Общая ошибка: {e}")
+else:
+    print("Всё прошло успешно")
+finally:
+    print("Выполнится всегда")</pre>
+
+                <h3>Частые исключения</h3>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">ValueError</span>
+                        <span class="method-desc">неправильное значение</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">KeyError</span>
+                        <span class="method-desc">нет такого ключа</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">IndexError</span>
+                        <span class="method-desc">неправильный индекс</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">FileNotFoundError</span>
+                        <span class="method-desc">файл не найден</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" data-content="списковые включения comprehensions генераторы">
+                <h2>⚡ Списковые включения</h2>
+                <pre># Базовый синтаксис
+[expression for item in iterable]
+
+# С условием
+[expression for item in iterable if condition]
+
+# Примеры
+squares = [x**2 for x in range(5)]      # [0,1,4,9,16]
+evens = [x for x in range(10) if x % 2 == 0]  # [0,2,4,6,8]
+
+# Словарные включения
+{k: v**2 for k, v in {"a": 1, "b": 2}.items()}
+
+# Множественные включения
+{x**2 for x in range(5)}  # {0, 1, 4, 9, 16}</pre>
+            </div>
+
+            <div class="section" data-content="datetime время дата форматирование strftime">
+                <h2>⏰ Datetime</h2>
+                <pre>from datetime import datetime, timedelta
+
+# Текущее время
+now = datetime.now()
+today = datetime.today()
+
+# Форматирование
+now.strftime("%Y-%m-%d %H:%M:%S")  # 2025-01-15 14:30:00
+datetime.strptime("2025-01-15", "%Y-%m-%d")
+
+# Операции
+tomorrow = now + timedelta(days=1)
+week_ago = now - timedelta(weeks=1)</pre>
+
+                <h3>Форматы времени</h3>
+                <div class="method-group">
+                    <div class="method-item">
+                        <span class="method-name">%Y</span>
+                        <span class="method-desc">год (4 цифры)</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">%m</span>
+                        <span class="method-desc">месяц (01-12)</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">%d</span>
+                        <span class="method-desc">день (01-31)</span>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">%H:%M:%S</span>
+                        <span class="method-desc">часы:минуты:секунды</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" data-content="json dumps loads файлы api">
+                <h2>🗂️ JSON</h2>
+                <pre>import json
+
+# Python → JSON
+data = {"name": "John", "age": 30}
+json_str = json.dumps(data, ensure_ascii=False)
+
+# JSON → Python
+parsed = json.loads(json_str)
+
+# Файлы
+with open("data.json", "w", encoding="utf-8") as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+
+with open("data.json", "r", encoding="utf-8") as f:
+    data = json.load(f)</pre>
+            </div>
+
+            <div class="section" data-content="телеграм боты валидация база данных sqlite">
+                <h2>🤖 Для телеграм-ботов</h2>
+                <h3>Валидация</h3>
+                <pre># Проверка на число
+def is_number(text):
+    try:
+        float(text)
+        return True
+    except ValueError:
+        return False
+
+# Проверка email
+import re
+def is_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return bool(re.match(pattern, email))</pre>
+
+                <h3>SQLite</h3>
+                <pre>import sqlite3
+
+conn = sqlite3.connect('bot.db')
+cursor = conn.cursor()
+
+# Создание таблицы
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users 
+    (id INTEGER, name TEXT, created DATE)
+""")
+
+# Вставка данных
+cursor.execute("INSERT INTO users VALUES (?, ?, ?)", 
+               (user_id, name, datetime.now()))
+
+# Получение данных
+cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+user = cursor.fetchone()
+
+conn.commit()
+conn.close()</pre>
+            </div>
+        </div>
+
+        <button class="back-to-top" onclick="scrollToTop()">↑</button>
+    </div>
+
+    <script>
+        // Поиск
+        const searchInput = document.getElementById('searchInput');
+        const sections = document.querySelectorAll('.section');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+            sections.forEach(section => {
+                const content = section.getAttribute('data-content').toLowerCase();
+                const text = section.textContent.toLowerCase();
+                
+                if (content.includes(query) || text.includes(query) || query === '') {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        });
+
+        // Кнопка "Наверх"
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Показать/скрыть кнопку "Наверх"
+        window.addEventListener('scroll', function() {
+            const button = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        });
+
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(30px)';
+                    section.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
